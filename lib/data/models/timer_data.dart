@@ -1,13 +1,13 @@
 import 'category.dart';
 
-class Timer {
+class TimerData {
   final String titie;
   final Category category;
   final DateTime creationDateTime;
   final DateTime time;
   final DateTime? completedDateTime;
 
-  Timer({
+  TimerData({
     required this.titie,
     required this.category,
     required this.creationDateTime,

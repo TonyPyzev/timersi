@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:timersi/application/constants/app_colors.dart';
 import 'package:timersi/application/constants/app_paddings.dart';
 import 'package:timersi/application/screens/timer/timer_screen.dart';
-import 'package:timersi/data/models/timer.dart';
+import 'package:timersi/data/models/timer_data.dart';
 
 class TimerCard extends StatelessWidget {
-  final Timer timer;
-  final LinearGradient gradient;
+  final TimerData timer;
   final Widget description;
+  final LinearGradient gradient;
 
   const TimerCard({
     super.key,
@@ -30,7 +30,6 @@ class TimerCard extends StatelessWidget {
         },
         child: Container(
           width: double.infinity,
-          //height: 132,
           constraints: const BoxConstraints(
             minHeight: 132,
             minWidth: 300,

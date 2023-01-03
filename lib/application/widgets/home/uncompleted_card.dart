@@ -3,23 +3,24 @@ import 'package:flutter/material.dart';
 
 import 'package:timersi/application/constants/app_colors.dart';
 import 'package:timersi/application/constants/app_paddings.dart';
-import 'package:timersi/application/screens/home/components/timer_card.dart';
-import 'package:timersi/data/models/timer.dart';
+import 'package:timersi/data/models/timer_data.dart';
+
+import 'timer_card.dart';
 
 class UncompletedCard extends StatelessWidget {
-  final Timer timer;
+  final TimerData time;
   final LinearGradient gradient;
 
   const UncompletedCard({
     super.key,
-    required this.timer,
+    required this.time,
     required this.gradient,
   });
 
   @override
   Widget build(BuildContext context) {
     return TimerCard(
-      timer: timer,
+      timer: time,
       gradient: gradient,
       description: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -42,7 +43,7 @@ class UncompletedCard extends StatelessWidget {
                   text: TextSpan(
                     children: [
                       TextSpan(
-                        text: '${timer.time.hour}:',
+                        text: '${time.time.hour}:',
                         style: const TextStyle(
                           fontFamily: 'Poppins',
                           color: AppColors.kSoftWhite,
@@ -51,7 +52,7 @@ class UncompletedCard extends StatelessWidget {
                         ),
                       ),
                       TextSpan(
-                        text: '${timer.time.minute}',
+                        text: '${time.time.minute}',
                         style: const TextStyle(
                           fontFamily: 'Poppins',
                           color: AppColors.kSoftWhite,
@@ -60,7 +61,7 @@ class UncompletedCard extends StatelessWidget {
                         ),
                       ),
                       TextSpan(
-                        text: ':${timer.time.second}',
+                        text: ':${time.time.second}',
                         style: const TextStyle(
                           fontFamily: 'Poppins',
                           color: AppColors.kSoftWhite,

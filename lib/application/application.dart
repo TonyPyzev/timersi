@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:timersi/application/navigation/navigation.dart';
+import 'package:timersi/application/screens/timer/cubit/timer_cubit.dart';
 import 'package:timersi/application/theme/app_theme.dart';
 
 class Application extends StatelessWidget {
@@ -9,12 +11,19 @@ class Application extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: _title,
-      debugShowCheckedModeBanner: false,
-      theme: AppTheme.darkTheme,
-      initialRoute: Navigation.initialRoute,
-      routes: Navigation.routes,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<TimerCubit>(
+          create: (context) => TimerCubit(),
+        ),
+      ],
+      child: MaterialApp(
+        title: _title,
+        debugShowCheckedModeBanner: false,
+        theme: AppTheme.darkTheme,
+        initialRoute: Navigation.initialRoute,
+        routes: Navigation.routes,
+      ),
     );
   }
 }

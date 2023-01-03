@@ -3,23 +3,24 @@ import 'package:flutter/material.dart';
 
 import 'package:timersi/application/constants/app_colors.dart';
 import 'package:timersi/application/constants/app_paddings.dart';
-import 'package:timersi/application/screens/home/components/timer_card.dart';
-import 'package:timersi/data/models/timer.dart';
+import 'package:timersi/data/models/timer_data.dart';
+
+import 'timer_card.dart';
 
 class CompletedCard extends StatelessWidget {
-  final Timer timer;
+  final TimerData time;
   final LinearGradient gradient;
 
   const CompletedCard({
     super.key,
-    required this.timer,
+    required this.time,
     required this.gradient,
   });
 
   @override
   Widget build(BuildContext context) {
     return TimerCard(
-      timer: timer,
+      timer: time,
       gradient: gradient,
       description: Column(
         children: [
@@ -39,7 +40,7 @@ class CompletedCard extends StatelessWidget {
                   text: TextSpan(
                     children: [
                       TextSpan(
-                        text: '${timer.time.hour}:',
+                        text: '${time.time.hour}:',
                         style: const TextStyle(
                           fontFamily: 'Poppins',
                           color: AppColors.kSoftWhite,
@@ -48,7 +49,7 @@ class CompletedCard extends StatelessWidget {
                         ),
                       ),
                       TextSpan(
-                        text: '${timer.time.minute}',
+                        text: '${time.time.minute}',
                         style: const TextStyle(
                           fontFamily: 'Poppins',
                           color: AppColors.kSoftWhite,
@@ -57,7 +58,7 @@ class CompletedCard extends StatelessWidget {
                         ),
                       ),
                       TextSpan(
-                        text: ':${timer.time.second}',
+                        text: ':${time.time.second}',
                         style: const TextStyle(
                           fontFamily: 'Poppins',
                           color: AppColors.kSoftWhite,
@@ -88,7 +89,7 @@ class CompletedCard extends StatelessWidget {
                     ),
                     const SizedBox(width: AppPadings.kTiny),
                     Text(
-                      '${timer.creationDateTime.day}.${timer.creationDateTime.month}.${timer.creationDateTime.year} - ${timer.completedDateTime!.day}.${timer.completedDateTime!.month}.${timer.completedDateTime!.year}',
+                      '${time.creationDateTime.day}.${time.creationDateTime.month}.${time.creationDateTime.year} - ${time.completedDateTime!.day}.${time.completedDateTime!.month}.${time.completedDateTime!.year}',
                       style: const TextStyle(
                         fontFamily: 'Poppins',
                         color: AppColors.kSoftWhite,

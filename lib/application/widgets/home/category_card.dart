@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:timersi/application/constants/app_colors.dart';
 import 'package:timersi/application/constants/app_paddings.dart';
+import 'package:timersi/application/screens/categories/categories_screen.dart';
 import 'package:timersi/data/models/category.dart';
 
 class CategoryCard extends StatelessWidget {
@@ -27,7 +28,7 @@ class CategoryCard extends StatelessWidget {
       ),
       child: GestureDetector(
         onTap: () {
-          //TODO open timer
+          Navigator.of(context).pushNamed(CategoriesScreen.pageRoute);
         },
         child: Container(
           width: double.infinity,

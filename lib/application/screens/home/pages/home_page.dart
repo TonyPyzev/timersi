@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 import 'package:timersi/application/constants/app_colors.dart';
 import 'package:timersi/application/constants/app_paddings.dart';
-import 'package:timersi/application/screens/home/components/components.dart';
-import 'package:timersi/application/screens/home/models/custom_tab.dart';
+import 'package:timersi/application/widgets/home/home_widgets.dart';
+import 'package:timersi/data/models/widget%20models/home/custom_tab.dart';
 import 'package:timersi/application/theme/font_theme.dart';
 import 'package:timersi/application/widgets/widgets.dart';
 import 'package:timersi/data/models/category.dart';
-import 'package:timersi/data/models/timer.dart';
+import 'package:timersi/data/models/timer_data.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -46,7 +46,7 @@ class _BodyState extends State<_Body> with TickerProviderStateMixin {
         colors: [Color(0xFF749EF1), Color(0xFF3268D1)],
       ),
       card: UncompletedCard(
-        timer: Timer(
+        time: TimerData(
           titie: 'Wash my car',
           category: Category(
             name: 'Routine',
@@ -113,7 +113,7 @@ class _BodyState extends State<_Body> with TickerProviderStateMixin {
         colors: [Color(0xFFE93939), Color(0xFFB91515)],
       ),
       card: CompletedCard(
-        timer: Timer(
+        time: TimerData(
           titie: 'Add validation',
           category: Category(
             name: 'Work',
