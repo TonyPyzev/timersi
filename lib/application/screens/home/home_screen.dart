@@ -5,6 +5,8 @@ import 'package:timersi/application/constants/app_colors.dart';
 import 'package:timersi/application/constants/app_paddings.dart';
 import 'package:timersi/application/screens/home/pages/home_page.dart';
 import 'package:timersi/application/screens/home/pages/settings_page.dart';
+import 'package:timersi/application/theme/font_theme.dart';
+import 'package:timersi/application/widgets/home/home_widgets.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String pageRoute = '/home';
@@ -127,7 +129,7 @@ class _CustomBottomBarState extends State<_CustomBottomBar> {
             ),
             GestureDetector(
               onTap: () {
-                //TODO add timer
+                _showBottomSheet(context);
               },
               child: Container(
                 width: 144,
@@ -174,5 +176,15 @@ class _CustomBottomBarState extends State<_CustomBottomBar> {
     setState(() {
       _activePage = pageIndex.toDouble();
     });
+  }
+
+  void _showBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      isScrollControlled: true,
+      context: context,
+      builder: (context) {
+        return const CustomBottomSheet();
+      },
+    );
   }
 }
