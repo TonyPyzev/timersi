@@ -62,38 +62,7 @@ class _TimerScreenState extends State<TimerScreen> {
                 alignment: Alignment.center,
                 children: [
                   Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          '${timer.time.hour}',
-                          style: const TextStyle(
-                            height: 1.0,
-                            fontFamily: 'Poppins',
-                            fontSize: 180,
-                            fontWeight: FontWeight.w300,
-                          ),
-                        ),
-                        Text(
-                          '${timer.time.minute}',
-                          style: const TextStyle(
-                            height: 1.0,
-                            fontFamily: 'Poppins',
-                            fontSize: 180,
-                          ),
-                        ),
-                        Text(
-                          '${timer.time.second}',
-                          style: const TextStyle(
-                            height: 1.0,
-                            fontFamily: 'Poppins',
-                            fontSize: 180,
-                            fontWeight: FontWeight.w100,
-                          ),
-                        ),
-                      ],
-                    ),
+                    child: _stopwatch(state),
                   ),
                   Visibility(
                     visible: state.isHoodVisible,
@@ -134,23 +103,37 @@ class _TimerScreenState extends State<TimerScreen> {
                                 ),
                                 GestureDetector(
                                   onTap: () {
-                                    //TODO back
+                                    if (state.timerStatus ==
+                                        TimerStatus.playing) {
+                                      cubit.pauseTimer();
+                                    } else {
+                                      cubit.startTimer();
+                                    }
                                   },
-                                  child: const FeatherIcon(
-                                    FeatherIcons.pauseCircle,
+                                  child: FeatherIcon(
+                                    state.timerStatus == TimerStatus.playing
+                                        ? FeatherIcons.pauseCircle
+                                        : FeatherIcons.playCircle,
                                     size: 84,
-                                    color: Color(0xFFB91515),
+                                    color: AppColors.kSoftWhite,
                                     strokeWidth: 0.75,
                                   ),
                                 ),
                                 GestureDetector(
                                   onTap: () {
-                                    //TODO back
+                                    if (state.timerStatus !=
+                                        TimerStatus.completed) {
+                                      cubit.completeTimer();
+                                    } else {
+                                      cubit.restartTimer();
+                                    }
                                   },
-                                  child: const FeatherIcon(
-                                    FeatherIcons.checkCircle,
+                                  child: FeatherIcon(
+                                    state.timerStatus != TimerStatus.completed
+                                        ? FeatherIcons.checkCircle
+                                        : FeatherIcons.rotateCcw,
                                     size: 84,
-                                    color: Color(0xFF108F23),
+                                    color: const Color(0xFF108F23),
                                     strokeWidth: 0.75,
                                   ),
                                 ),
@@ -169,4 +152,52 @@ class _TimerScreenState extends State<TimerScreen> {
       },
     );
   }
+
+  Column _stopwatch(TimerState state) {
+    String seconds = _formatTimeToTwoDidgets(
+      state.duration.inSeconds.remainder(60),
+    );
+    String minutes = _formatTimeToTwoDidgets(
+      state.duration.inMinutes.remainder(60),
+    );
+    String hours = _formatTimeToTwoDidgets(
+      state.duration.inHours,
+    );
+
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        if (state.duration.inHours != 0)
+          Text(
+            hours,
+            style: const TextStyle(
+              height: 1.0,
+              fontFamily: 'Poppins',
+              fontSize: 180,
+              fontWeight: FontWeight.w300,
+            ),
+          ),
+        Text(
+          minutes,
+          style: const TextStyle(
+            height: 1.0,
+            fontFamily: 'Poppins',
+            fontSize: 180,
+          ),
+        ),
+        Text(
+          seconds,
+          style: const TextStyle(
+            height: 1.0,
+            fontFamily: 'Poppins',
+            fontSize: 180,
+            fontWeight: FontWeight.w100,
+          ),
+        ),
+      ],
+    );
+  }
+
+  String _formatTimeToTwoDidgets(int num) => num.toString().padLeft(2, '0');
 }

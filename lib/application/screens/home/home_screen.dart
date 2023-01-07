@@ -1,27 +1,35 @@
 import 'package:feather_icons_svg/feather_icons_svg.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:timersi/application/constants/app_colors.dart';
 import 'package:timersi/application/constants/app_paddings.dart';
+import 'package:timersi/application/screens/home/cubit/home/home_cubit.dart';
 import 'package:timersi/application/screens/home/pages/home_page.dart';
 import 'package:timersi/application/screens/home/pages/settings_page.dart';
-import 'package:timersi/application/theme/font_theme.dart';
 import 'package:timersi/application/widgets/home/home_widgets.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String pageRoute = '/home';
 
-  const HomeScreen({super.key});
+  final BuildContext parentContext;
+
+  const HomeScreen({
+    super.key,
+    required this.parentContext,
+  });
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  late final HomeCubit cubit;
   late final PageController _pageController;
 
   @override
   void initState() {
+    cubit = widget.parentContext.read<HomeCubit>();
     _initPageController();
     super.initState();
   }
@@ -127,13 +135,14 @@ class _CustomBottomBarState extends State<_CustomBottomBar> {
                 ),
               ],
             ),
+            const SizedBox(width: AppPadings.kLarge),
             GestureDetector(
               onTap: () {
                 _showBottomSheet(context);
               },
               child: Container(
-                width: 144,
                 height: 48,
+                width: 144,
                 decoration: const BoxDecoration(
                   color: AppColors.kSoftBlack,
                   borderRadius: BorderRadius.all(

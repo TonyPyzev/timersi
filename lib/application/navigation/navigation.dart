@@ -7,7 +7,7 @@ class Navigation {
   static const String initialRoute = HomeScreen.pageRoute;
 
   static final Map<String, Widget Function(BuildContext)> routes = {
-    HomeScreen.pageRoute: (context) => const HomeScreen(),
+    HomeScreen.pageRoute: (context) => HomeScreen(parentContext: context),
     TimerScreen.pageRoute: (context) => TimerScreen(parentContext: context),
     CategoriesScreen.pageRoute: (context) => const CategoriesScreen(),
   };

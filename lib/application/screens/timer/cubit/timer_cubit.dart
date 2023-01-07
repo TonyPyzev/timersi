@@ -7,9 +7,38 @@ import 'package:timersi/application/constants/app_colors.dart';
 part 'timer_state.dart';
 
 class TimerCubit extends Cubit<TimerState> {
+  late Timer timer;
   late Timer hoodTimer;
 
-  TimerCubit() : super(const TimerState());
+  TimerCubit() : super(const TimerState(duration: Duration()));
+
+  void startTimer() {
+    emit(state.copyWith(
+      timerStatus: TimerStatus.playing,
+    ));
+    timer = _createTimer();
+  }
+
+  void pauseTimer() {
+    emit(state.copyWith(
+      timerStatus: TimerStatus.pause,
+    ));
+    timer.cancel();
+  }
+
+  void completeTimer() {
+    emit(state.copyWith(
+      timerStatus: TimerStatus.completed,
+    ));
+    timer.cancel();
+  }
+
+  void restartTimer() {
+    emit(state.copyWith(
+      duration: const Duration(days: 3),
+      timerStatus: TimerStatus.pause,
+    ));
+  }
 
   void setHoodHideTimer() {
     const Duration duration = Duration(
@@ -23,7 +52,6 @@ class TimerCubit extends Cubit<TimerState> {
 
   void resetState() {
     hoodTimer.cancel();
-    emit(const TimerState());
   }
 
   void switchHoodVisibility() {
@@ -48,5 +76,18 @@ class TimerCubit extends Cubit<TimerState> {
       backgroundColor: AppColors.kBackgroundBlack,
       isHoodVisible: false,
     ));
+  }
+
+  void _addTime() {
+    emit(state.copyWith(
+      duration: Duration(seconds: state.duration.inSeconds + 1),
+    ));
+  }
+
+  Timer _createTimer() {
+    return Timer.periodic(
+      const Duration(seconds: 1),
+      (_) => _addTime(),
+    );
   }
 }
